@@ -1,9 +1,13 @@
-export function EmptyState() {
+export function EmptyState({ liveDataUnavailable = false }: { liveDataUnavailable?: boolean }) {
   return (
     <div className="empty-state" role="status">
       <span aria-hidden="true">⌕</span>
-      <strong>Bu filtrelere uygun kurum bulunamadı</strong>
-      <p>İlçe veya kategori seçimini değiştirmeyi deneyin. Bu bölge için canlı veri kaynağı henüz bağlanmamış olabilir.</p>
+      <strong>{liveDataUnavailable ? "Canlı nöbet verisi bekleniyor" : "Bu filtrelere uygun kurum bulunamadı"}</strong>
+      <p>
+        {liveDataUnavailable
+          ? "Bu bölge için canlı nöbet verisi henüz bağlanmadı. Lütfen resmi kaynaklardan kontrol edin."
+          : "İl, ilçe veya kategori seçimini değiştirmeyi deneyin."}
+      </p>
     </div>
   );
 }

@@ -40,12 +40,15 @@ npm run update-data
 
 ```env
 NEXT_PUBLIC_SITE_URL=https://nobetci.org
-NEXT_PUBLIC_SHOW_SAMPLE_DATA=true
+NEXT_PUBLIC_SHOW_SAMPLE_DATA=false
 CRON_SECRET=uzun-rastgele-bir-deger
 NOMINATIM_USER_AGENT=Nobetci.org/0.1 (contact@example.com)
+PHARMACY_SOURCE_URL=
+NOTARY_SOURCE_URL=
+HOSPITAL_SOURCE_URL=
 ```
 
-- `NEXT_PUBLIC_SHOW_SAMPLE_DATA=false`: demo kayıtlarını tamamen gizler.
+- Demo kayıtlar yalnızca `NEXT_PUBLIC_SHOW_SAMPLE_DATA=true` olduğunda yüklenir. Değer tanımsız veya `false` ise production güvenliği için tamamen gizlenir.
 - `CRON_SECRET`: opsiyonel `/api/cron/update` kontrol rotasını korur.
 - `NOMINATIM_USER_AGENT`: geocoding etkinleştirilirse Nominatim’in istediği tanımlayıcı değerdir.
 
@@ -77,6 +80,8 @@ Adaptörler şunlardır:
 - `src/lib/sources/index.ts`
 
 Gerçek kaynak doğrulanana kadar adaptörler boş sonuç döndürür. Bu bilinçli bir güvenlik kararıdır; robots.txt veya kullanım koşullarına aykırı scraping yapılmaz.
+
+İlk işlevsel adaptör sözleşmesi `PHARMACY_SOURCE_URL`, `NOTARY_SOURCE_URL` ve `HOSPITAL_SOURCE_URL` değişkenleriyle izinli HTTPS JSON kaynaklarını kabul eder. Kaynak yanıtı doğrudan bir dizi veya `{ "data": [...] }` yapısı olabilir. Her kayıtta en az `name`, `city`, `district` ve `address` alanları bulunmalıdır. Hatalı kayıtlar atlanır; timeout, HTTP veya JSON hatasında adaptör boş dizi döndürür ve site çalışmaya devam eder.
 
 ### Yeni kaynak adaptörü ekleme
 
@@ -146,7 +151,7 @@ npx vercel@latest --prod
 
 Hakkında, gizlilik ve iletişim sayfaları; kaynak doğrulama uyarıları; özgün kategori/şehir açıklamaları; mobil navigasyon; özel 404 sayfası ve demo veri etiketleri hazırdır. Reklam/analitik etkinleştirilirse gizlilik metni, çerez izni ve ilgili sağlayıcı açıklamaları yayın öncesinde güncellenmelidir. AdSense onayı hiçbir teknik düzenlemeyle garanti edilemez.
 
-İletişim adresi `iletisim@nobetci.org` şu anda placeholder’dır ve production öncesinde çalışan posta kutusuna bağlanmalıdır.
+İletişim adresi `iletisim@nobetci.org` kullanıcı arayüzünde yayımlanır. Posta kutusunun alan adı sağlayıcısında etkin ve düzenli izleniyor olduğu production öncesinde ayrıca doğrulanmalıdır.
 
 ## Eksik kalan işler
 

@@ -17,7 +17,7 @@ async function updateData() {
   }
 
   if (collected.length === 0) {
-    console.log("[update-data] Gerçek kaynak kaydı yok; mevcut örnek veri korunuyor.");
+    console.log("[update-data] Gerçek kaynak kaydı yok; mevcut canlı veri dosyası korunuyor.");
     return;
   }
 

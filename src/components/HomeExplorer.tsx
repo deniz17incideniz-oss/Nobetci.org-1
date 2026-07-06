@@ -29,6 +29,7 @@ type HomeExplorerProps = {
 };
 
 export function HomeExplorer({ institutions, initialCategory, initialCity = "", initialDistrict = "" }: HomeExplorerProps) {
+  const hasSampleData = institutions.some((institution) => institution.confidence === "sample");
   const [query, setQuery] = useState("");
   const [categories, setCategories] = useState<InstitutionCategory[]>(initialCategory ? [initialCategory] : []);
   const [city, setCity] = useState(initialCity);
@@ -119,13 +120,13 @@ export function HomeExplorer({ institutions, initialCategory, initialCity = "", 
         onDutyChange={setDuty} onOfficialOnlyChange={setOfficialOnly} onPhoneOnlyChange={setPhoneOnly}
         onNearbyOnlyChange={handleNearbyChange}
       />
-      <div className="sample-notice"><strong>Bilgilendirme:</strong> Demo kayıtlar gerçek nöbet bilgisi değildir ve “Demo veri” etiketiyle gösterilir. Gitmeden önce kurumun resmi kaynağından doğrulayın.</div>
+      {hasSampleData && <div className="sample-notice"><strong>Demo görünümü:</strong> Bu kayıtlar gerçek nöbet bilgisi değildir ve “Demo veri” etiketiyle gösterilir. Gitmeden önce kurumun resmi kaynağından doğrulayın.</div>}
       <div className="explorer-grid">
         <div className="map-shell"><MapView institutions={filtered} focused={focused} userPosition={userPosition} /></div>
         <aside className="results-panel" aria-label="Kurum sonuçları">
           <div className="results-heading"><h2>Kurumlar</h2><span>{filtered.length} sonuç</span></div>
           <div className="results-list">
-            {results.length > 0 ? results.map(({ institution, distance }) => <InstitutionCard key={institution.id} institution={institution} distance={distance} onShow={setFocused} />) : <EmptyState />}
+            {results.length > 0 ? results.map(({ institution, distance }) => <InstitutionCard key={institution.id} institution={institution} distance={distance} onShow={setFocused} />) : <EmptyState liveDataUnavailable={institutions.length === 0} />}
           </div>
         </aside>
       </div>

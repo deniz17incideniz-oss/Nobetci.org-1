@@ -20,7 +20,7 @@ export const categoryColors: Record<InstitutionCategory, string> = {
 
 export function getInstitutions(): Institution[] {
   const live = liveInstitutions as Institution[];
-  const showSamples = process.env.NEXT_PUBLIC_SHOW_SAMPLE_DATA !== "false";
+  const showSamples = process.env.NEXT_PUBLIC_SHOW_SAMPLE_DATA === "true";
   const samples = (sampleInstitutions as Array<Omit<Institution, "confidence"> & { confidence?: Institution["confidence"] }>).map((item) => ({
     ...item,
     confidence: "sample" as const,
