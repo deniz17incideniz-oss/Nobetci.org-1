@@ -1,16 +1,17 @@
 # Nobetci.org
 
-Türkiye’deki nöbetçi eczane, noter, hastane acil servisi, belediye hizmeti ve 7/24 acil kurumları harita ve liste üzerinde bulmayı kolaylaştıran Next.js MVP’si.
+Nobetci.org; Türkiye’deki nöbetçi eczane, nöbetçi noter, hastane acil servisi, belediye destek hizmeti ve 7/24 acil kurumları harita ve liste üzerinde bulmayı kolaylaştıran mobil öncelikli bir bilgilendirme platformudur.
 
-> Bu ilk sürüm örnek veriler içerir. Nöbet, adres ve iletişim bilgileri resmi kurumdan doğrulanmadan kullanılmamalıdır. Acil durumda 112 aranmalıdır.
+> Nobetci.org resmi kurum veya acil çağrı hizmeti değildir. Nöbet, adres, telefon ve çalışma bilgileri işlem yapmadan önce resmi kaynaktan doğrulanmalıdır. Acil durumlarda 112 aranmalıdır.
 
-## Teknoloji
+## Teknolojiler
 
-- Next.js App Router ve TypeScript
+- Next.js App Router, React ve TypeScript
 - Tailwind CSS altyapısı ve responsive CSS
 - React Leaflet ve OpenStreetMap
 - Kaynak türüne göre ayrılmış veri adaptörleri
-- Günlük GitHub Actions veri güncelleme iş akışı
+- GitHub Actions günlük veri güncellemesi
+- Next.js metadata, canonical, Open Graph, Twitter Card, JSON-LD, sitemap ve robots
 
 ## Kurulum
 
@@ -31,61 +32,127 @@ npm run dev
 npm run typecheck
 npm run lint
 npm run build
+npm run start
 npm run update-data
 ```
 
-## Veri yapısı
+## Ortam değişkenleri
 
-Örnek kayıtlar `src/data/sample-institutions.json` dosyasındadır. Ortak veri tipi `src/types/institution.ts` içinde tanımlanır. Her kayıtta benzersiz kimlik, kurum adı, kategori, il/ilçe, açık adres, koordinatlar, kaynak ve güncelleme zamanı bulunur.
+```env
+NEXT_PUBLIC_SITE_URL=https://nobetci.org
+NEXT_PUBLIC_SHOW_SAMPLE_DATA=true
+CRON_SECRET=uzun-rastgele-bir-deger
+NOMINATIM_USER_AGENT=Nobetci.org/0.1 (contact@example.com)
+```
 
-Kaynak adaptörleri:
+- `NEXT_PUBLIC_SHOW_SAMPLE_DATA=false`: demo kayıtlarını tamamen gizler.
+- `CRON_SECRET`: opsiyonel `/api/cron/update` kontrol rotasını korur.
+- `NOMINATIM_USER_AGENT`: geocoding etkinleştirilirse Nominatim’in istediği tanımlayıcı değerdir.
+
+## Veri modeli ve gerçek/demo ayrımı
+
+- Canlı/veri kaynağından gelen kayıtlar: `src/data/institutions.json`
+- Geliştirme/demo kayıtları: `src/data/sample-institutions.json`
+- 81 il ve büyüyebilir ilçe yapısı: `src/data/cities.ts`
+- Ortak tip: `src/types/institution.ts`
+
+Her kurum `confidence` alanı taşır:
+
+- `official`: Resmi kaynak
+- `verified`: Doğrulanmış
+- `sample`: Demo veri
+- `unknown`: Kaynak bekleniyor
+
+Demo kayıtlar arayüzde zorunlu olarak “Demo veri” etiketi alır. Demo telefonlar aranabilir bağlantıya dönüştürülmez.
+
+## Veri kaynak sistemi
+
+Adaptörler şunlardır:
 
 - `src/lib/sources/pharmacies.ts`
 - `src/lib/sources/notaries.ts`
 - `src/lib/sources/hospitals.ts`
 - `src/lib/sources/municipal.ts`
 - `src/lib/sources/emergency.ts`
+- `src/lib/sources/index.ts`
 
-Adaptörler gerçek kaynak doğrulanana kadar boş sonuç döndürür. `npm run update-data` tüm adaptörleri güvenli biçimde çalıştırır; veri gelmezse örnek dosyayı korur, tek bir kaynak hata verirse diğerleriyle devam eder.
+Gerçek kaynak doğrulanana kadar adaptörler boş sonuç döndürür. Bu bilinçli bir güvenlik kararıdır; robots.txt veya kullanım koşullarına aykırı scraping yapılmaz.
 
-## Yeni veri kaynağı ekleme
+### Yeni kaynak adaptörü ekleme
 
-1. Kaynağın herkese açık olduğunu, kullanım şartlarını ve `robots.txt` kurallarını doğrulayın.
-2. İlgili adaptörde yanıtı `Institution[]` biçimine dönüştürün.
-3. Kaynak adı, kaynak URL’si ve `lastUpdated` alanlarını mutlaka doldurun.
-4. Aynı kurumu tekrar üretmeyen kararlı bir `id` oluşturun.
-5. Rate limit uygulayın; sonucu önbelleğe alın ve servis üzerinde yoğun istek oluşturmayın.
-6. `npm run update-data`, `npm run typecheck` ve `npm run build` komutlarını çalıştırın.
+1. Kaynağın resmi/halka açık olduğunu, kullanım şartlarını ve robots.txt kurallarını doğrulayın.
+2. Mümkünse resmi API veya açık veri çıktısını tercih edin.
+3. Kaydı `Institution[]` biçimine normalize edin.
+4. `sourceName`, `sourceUrl`, `lastUpdated` ve `confidence` alanlarını doldurun.
+5. Kararlı ve tekrar üretilebilir bir `id` oluşturun.
+6. Rate limit, timeout ve güvenli hata yönetimi ekleyin.
+7. `npm run update-data`, `npm run typecheck`, `npm run lint` ve `npm run build` çalıştırın.
 
-HTML scraping yalnızca açık izin ve kullanım koşulları uygunsa eklenmelidir. Resmi API veya açık veri çıktısı her zaman tercih edilmelidir.
+## Günlük veri güncellemesi
 
-## Günlük güncelleme
+`scripts/update-data.ts` tüm adaptörleri çalıştırır, hatalı kaynağı izole eder, kayıtları normalize eder, benzersizleştirir ve canlı sonucu `src/data/institutions.json` dosyasına yazar. Hiç gerçek kayıt gelmezse mevcut canlı dosya korunur; build kırılmaz.
 
-`.github/workflows/update-data.yml`, her gün 06:00 UTC’de (Türkiye saatiyle 09:00) çalışır. Veri değişirse yalnızca veri dosyasını commit eder. GitHub deposunda Actions için `Read and write permissions` yetkisi açık olmalıdır.
+`.github/workflows/update-data.yml` her gün 06:00 UTC’de, Türkiye saatiyle 09:00’da çalışır. Veri değişirse `Update daily duty institution data` mesajıyla otomatik commit oluşturur. GitHub Actions için `Read and write permissions` açık olmalıdır.
 
-Vercel serverless çalışma alanında dosya sistemi kalıcı olmadığı için veri güncellemesinin GitHub Actions üzerinden repoya yazılması tercih edilmiştir. Bir Vercel Cron route’u eklenirse veriyi kalıcı bir veritabanına veya object storage’a yazmalıdır.
+Opsiyonel `/api/cron/update` rotası `Authorization: Bearer <CRON_SECRET>` ister. Vercel’in geçici dosya sistemi kalıcı olmadığı için bu rota yalnızca adaptör sağlık kontrolü yapar; kalıcı güncelleme GitHub Actions üzerinden yürür.
 
 ## Geocoding
 
-`src/lib/geocode.ts`, Nominatim entegrasyonu için hazır bir katman sağlar. Üretimde Nominatim kullanım politikasına uyulmalı, tanımlayıcı User-Agent kullanılmalı, toplu sorgular en fazla saniyede bir istekle yapılmalı ve sonuçlar önbelleğe alınmalıdır. MVP doğrudan JSON içindeki koordinatları kullanır.
+`src/lib/geocode.ts` Nominatim entegrasyonuna ve `src/data/geocode-cache.json` tabanlı cache yaklaşımına hazırdır. MVP doğrudan JSON koordinatlarını kullanır.
+
+Nominatim etkinleştirilirken:
+
+- kullanım politikası okunmalı;
+- tanımlayıcı User-Agent gönderilmeli;
+- toplu işlemlerde en fazla saniyede bir istek yapılmalı;
+- aynı adres tekrar sorgulanmamalı, sonuç cache’lenmeli;
+- yüksek trafik için kendi servisiniz veya ticari geocoder tercih edilmelidir.
+
+## Sayfalar ve SEO
+
+- `/` ana sayfa
+- `/harita`
+- `/nobetci-eczane`
+- `/nobetci-noter`
+- `/acil-servis`
+- `/belediye-hizmetleri`
+- `/about`, `/privacy`, `/contact`
+- `/{city}/nobetci-eczane`
+- `/{city}/nobetci-noter`
+- `/{city}/acil-servis`
+- `/{city}/{district}/nobetci-eczane`
+- `/{city}/{district}/nobetci-noter`
+
+Her dizin sayfası benzersiz title/description, canonical URL, Open Graph, Twitter Card, açıklayıcı metin ve JSON-LD içerir. Sitemap yalnızca gerçek veya açıkça etiketlenmiş demo içeriği bulunan şehir/ilçe rotalarını listeler.
 
 ## Vercel deployment
 
-1. Vercel’de **Add New → Project** ile GitHub reposunu içe aktarın.
-2. Framework otomatik olarak Next.js seçilir; Build Command `npm run build` olarak kalabilir.
-3. `NEXT_PUBLIC_SITE_URL` değerini production alan adınıza ayarlayın.
-4. Deploy işlemini başlatın ve alan adını projeye bağlayın.
+1. Vercel’de GitHub reposunu `nobetci-org` projesine bağlayın.
+2. Framework preset olarak Next.js kullanın.
+3. Production ortam değişkenlerini ekleyin.
+4. `NEXT_PUBLIC_SITE_URL` değerini gerçek alan adına ayarlayın.
+5. Ana dala push sonrasında production deployment sonucunu kontrol edin.
 
-Vercel CLI ile manuel yayın gerekiyorsa:
+CLI ile:
 
 ```bash
-npm i -g vercel
-vercel login
-vercel --prod
+npx vercel@latest whoami
+npx vercel@latest --prod
 ```
 
-Bu repoda Vercel erişim tokenı saklanmaz. GitHub-Vercel bağlantısı kurulduktan sonra ana dala gönderilen commitler otomatik yayınlanır.
+Özel `nobetci.org` alan adı Vercel projesine ayrıca bağlanmalı ve DNS kayıtları doğrulanmalıdır.
 
-## Yasal ve açık kaynak uyarısı
+## AdSense hazırlığı
 
-Nobetci.org bir resmi kurum değildir. Verilerin doğruluğu ve güncelliği garanti edilmez. Sağlık, güvenlik, afet ve hukuki işlemlerde 112 veya ilgili resmi kurum esas alınmalıdır. Kaynak bağlarken kişisel veri içermeyen, yeniden kullanıma izin veren, halka açık bilgiler kullanılmalıdır.
+Hakkında, gizlilik ve iletişim sayfaları; kaynak doğrulama uyarıları; özgün kategori/şehir açıklamaları; mobil navigasyon; özel 404 sayfası ve demo veri etiketleri hazırdır. Reklam/analitik etkinleştirilirse gizlilik metni, çerez izni ve ilgili sağlayıcı açıklamaları yayın öncesinde güncellenmelidir. AdSense onayı hiçbir teknik düzenlemeyle garanti edilemez.
+
+İletişim adresi `iletisim@nobetci.org` şu anda placeholder’dır ve production öncesinde çalışan posta kutusuna bağlanmalıdır.
+
+## Eksik kalan işler
+
+- Her kategori için kullanım izni doğrulanmış gerçek kaynak/API bağlamak
+- Tüm ilçelerin resmi listesini `cities.ts` içine eklemek
+- Gerçek e-posta kutusunu etkinleştirmek
+- `nobetci.org` alan adı ve DNS ayarlarını tamamlamak
+- Nominatim yerine production trafiğine uygun cache’li geocoding servisi seçmek
+- Gerçek veri geldikten sonra içerik doğrulama ve gözlemleme alarmları eklemek

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 64" role="img" aria-labelledby="title desc">
+  <title id="title">Nobetci.org</title>
+  <desc id="desc">Harita pini ve saat simgeli Nobetci.org logosu</desc>
+  <g transform="translate(4 2)">
+    <path d="M30 1C14 1 1 13.8 1 29.6 1 49.7 30 65 30 65s29-15.3 29-35.4C59 13.8 46 1 30 1Z" fill="#2563eb" transform="scale(.9)"/>
+    <circle cx="27" cy="27" r="15" fill="#fff"/>
+    <path d="M27 15v13l8 4.5" fill="none" stroke="#2563eb" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+    <path d="M38 16a14 14 0 0 0-18-2.2A12.5 12.5 0 0 1 38 16Z" fill="#16a34a"/>
+  </g>
+  <text x="68" y="42" fill="#0f172a" font-family="Arial,Helvetica,sans-serif" font-size="34" font-weight="800" letter-spacing="-1">Nobetci.org</text>
+</svg>

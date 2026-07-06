@@ -5,20 +5,23 @@ import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://nobetci.org"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://nobetci-org.vercel.app"),
   title: {
-    default: "Nobetci.org | Türkiye Nöbetçi Kurum Haritası",
+    default: "Nobetci.org | Türkiye Nöbetçi Eczane, Noter ve Acil Kurum Haritası",
     template: "%s | Nobetci.org",
   },
-  description: "Türkiye’deki nöbetçi eczane, noter, acil servis ve diğer nöbetçi kurumları harita üzerinde bulun.",
+  description: "Türkiye’deki nöbetçi eczane, noter, acil servis ve diğer nöbetçi kurumları haritada bulun. İl ve ilçe seçin, adres, telefon ve yol tarifi bilgilerine ulaşın.",
+  icons: { icon: "/favicon.svg", shortcut: "/favicon.svg" },
   openGraph: {
     type: "website",
     locale: "tr_TR",
     siteName: "Nobetci.org",
-    title: "Nobetci.org | Türkiye Nöbetçi Kurum Haritası",
-    description: "Türkiye’deki nöbetçi eczane, noter, acil servis ve diğer nöbetçi kurumları harita üzerinde bulun.",
+    title: "Nobetci.org | Türkiye Nöbetçi Eczane, Noter ve Acil Kurum Haritası",
+    description: "Türkiye’deki nöbetçi eczane, noter, acil servis ve diğer nöbetçi kurumları haritada bulun.",
+    images: [{ url: "/logo.svg", width: 260, height: 64, alt: "Nobetci.org" }],
     url: "/",
   },
+  twitter: { card: "summary_large_image", title: "Nobetci.org", description: "Türkiye nöbetçi kurum haritası", images: ["/logo.svg"] },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -32,4 +35,3 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     </html>
   );
 }
-

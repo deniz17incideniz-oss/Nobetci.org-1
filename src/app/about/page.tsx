@@ -1,30 +1,7 @@
-import type { Metadata } from "next";
+import { createMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Hakkında",
-  description: "Nobetci.org'un amacı, veri yaklaşımı ve önemli doğrulama uyarıları.",
-};
+export const metadata = createMetadata("Hakkımızda", "Nobetci.org'un amacı, kapsadığı kurumlar, veri güncelleme yaklaşımı ve doğrulama ilkeleri.", "/about");
 
 export default function AboutPage() {
-  return (
-    <article className="container content-page">
-      <span className="eyebrow">Hakkımızda</span>
-      <h1>Doğru kuruma daha hızlı ulaşın</h1>
-      <p className="lead">Nobetci.org; nöbetçi eczane, noter, hastane acil servisi, belediye hizmeti ve 7/24 çalışan acil kurumları tek haritada bulmayı kolaylaştıran bir bilgilendirme platformudur.</p>
-
-      <section>
-        <h2>Veriler nasıl hazırlanır?</h2>
-        <p>Veriler, yalnızca halka açık ve kullanım koşulları veri derlemeye izin veren kaynaklardan alınacak biçimde tasarlanmıştır. Her kurum türü ayrı bir kaynak adaptörüne sahiptir. İlk MVP sürümündeki bazı kayıtlar, arayüzün ve veri mimarisinin çalışmasını göstermek amacıyla oluşturulmuş örnek verilerdir.</p>
-      </section>
-      <section className="warning-box">
-        <h2>Resmi kaynaktan doğrulayın</h2>
-        <p>Nöbet bilgileri, adresler ve çalışma saatleri değişebilir. Yola çıkmadan önce ilgili resmi kurumdan doğrulama yapın. Sağlık ve acil durumlarda bu siteye güvenerek gecikmeyin; 112 Acil Çağrı Merkezi’ni arayın. Hukuki işlemlerde Türkiye Noterler Birliği ve ilgili resmi kurumların güncel duyuruları esastır.</p>
-      </section>
-      <section>
-        <h2>Açık harita yaklaşımı</h2>
-        <p>Harita altyapısında OpenStreetMap kullanılır. Amacımız sade, hızlı, erişilebilir ve Türkiye’nin tüm illerine ölçeklenebilen bir hizmet sunmaktır.</p>
-      </section>
-    </article>
-  );
+  return <article className="container content-page"><span className="eyebrow">Hakkımızda</span><h1>Doğru kuruma daha hızlı ulaşın</h1><p className="lead">Nobetci.org, nöbetçi ve 7/24 hizmet veren kurumları tek harita üzerinde bulmayı kolaylaştıran bağımsız bir bilgilendirme platformudur.</p><section><h2>Nobetci.org nedir?</h2><p>Eczane, noter, hastane acil servisi, belediye arıza ve destek birimleri ile polis, jandarma, itfaiye ve AFAD gibi acil kurumları sade bir arama deneyiminde bir araya getirmeyi amaçlar.</p></section><section><h2>Veriler nereden gelir?</h2><p>Yalnızca halka açık, yasal ve kullanım koşulları veri derlemeye izin veren resmi kaynaklar kullanılmak üzere modüler kaynak adaptörleri hazırlanmıştır. Canlı kaynak bağlanmamış kayıtlar açıkça “Demo veri” olarak işaretlenir ve gerçek nöbet kaydı gibi sunulmaz.</p></section><section><h2>Ne sıklıkta güncellenir?</h2><p>Günlük veri iş akışı Türkiye saatiyle her sabah çalışacak şekilde hazırlanmıştır. Kaynak erişiminde hata oluşursa mevcut canlı veri korunur ve demo verilerle karıştırılmaz.</p></section><section className="warning-box"><h2>Neden doğrulama gerekir?</h2><p>Nöbet çizelgeleri, adresler ve çalışma saatleri son anda değişebilir. Yola çıkmadan veya işlem yapmadan önce ilgili resmi kaynaktan doğrulama yapın. Sağlık, güvenlik, yangın veya afet durumunda siteyi beklemeden 112 Acil Çağrı Merkezi’ni arayın.</p></section><section><h2>Bilgilendirme amacı</h2><p>Nobetci.org resmi kurum veya acil yardım hizmeti değildir. Sunulan harita ve listeler kullanıcıların doğru resmi bilgiye daha hızlı ulaşmasını desteklemek amacıyla hazırlanır.</p></section></article>;
 }
-

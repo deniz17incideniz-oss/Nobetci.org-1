@@ -1,30 +1,18 @@
 import { writeFile } from "node:fs/promises";
 import path from "node:path";
-import { fetchEmergencyServices } from "../src/lib/sources/emergency";
-import { fetchHospitals } from "../src/lib/sources/hospitals";
-import { fetchMunicipalServices } from "../src/lib/sources/municipal";
-import { fetchNotaries } from "../src/lib/sources/notaries";
-import { fetchPharmacies } from "../src/lib/sources/pharmacies";
+import { sourceAdapters } from "../src/lib/sources";
 import type { Institution } from "../src/types/institution";
-
-const adapters = [
-  ["pharmacies", fetchPharmacies],
-  ["notaries", fetchNotaries],
-  ["hospitals", fetchHospitals],
-  ["municipal", fetchMunicipalServices],
-  ["emergency", fetchEmergencyServices],
-] as const;
 
 async function updateData() {
   const collected: Institution[] = [];
 
-  for (const [name, adapter] of adapters) {
+  for (const adapter of sourceAdapters) {
     try {
-      const institutions = await adapter();
+      const institutions = await adapter.fetch();
       collected.push(...institutions);
-      console.log(`[update-data] ${name}: ${institutions.length} kayıt`);
+      console.log(`[update-data] ${adapter.name}: ${institutions.length} kayıt`);
     } catch (error) {
-      console.error(`[update-data] ${name} adaptörü başarısız; diğer kaynaklarla devam ediliyor.`, error instanceof Error ? error.message : "Bilinmeyen hata");
+      console.error(`[update-data] ${adapter.name} adaptörü başarısız; diğer kaynaklarla devam ediliyor.`, error instanceof Error ? error.message : "Bilinmeyen hata");
     }
   }
 
@@ -33,11 +21,19 @@ async function updateData() {
     return;
   }
 
-  const destination = path.join(process.cwd(), "src", "data", "sample-institutions.json");
-  const normalized = collected.map((institution) => ({
-    ...institution,
-    lastUpdated: institution.lastUpdated || new Date().toISOString(),
-  }));
+  const destination = path.join(process.cwd(), "src", "data", "institutions.json");
+  const unique = new Map<string, Institution>();
+  for (const institution of collected) {
+    const key = institution.id || `${institution.category}:${institution.city}:${institution.district}:${institution.name}`.toLocaleLowerCase("tr-TR");
+    unique.set(key, {
+      ...institution,
+      confidence: institution.confidence ?? "unknown",
+      lastUpdated: institution.lastUpdated || new Date().toISOString(),
+    });
+  }
+  const normalized = [...unique.values()];
+  const missingCoordinates = normalized.filter((item) => item.latitude == null || item.longitude == null).length;
+  if (missingCoordinates) console.log(`[update-data] ${missingCoordinates} kayıt geocoding bekliyor.`);
   await writeFile(destination, `${JSON.stringify(normalized, null, 2)}\n`, "utf8");
   console.log(`[update-data] ${normalized.length} kayıt yazıldı.`);
 }
@@ -46,4 +42,3 @@ updateData().catch((error) => {
   console.error("[update-data] Güncelleme tamamlanamadı; build etkilenmeyecek.", error instanceof Error ? error.message : "Bilinmeyen hata");
   process.exitCode = 0;
 });
-

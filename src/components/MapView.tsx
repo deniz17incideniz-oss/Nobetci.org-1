@@ -3,7 +3,8 @@
 import { useEffect } from "react";
 import L from "leaflet";
 import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
-import { categoryColors, categoryLabels } from "@/lib/data";
+import { categoryColors, categoryLabels, confidenceLabels } from "@/lib/data";
+import { getDirectionsUrl } from "@/lib/maps";
 import type { Institution } from "@/types/institution";
 
 type MapViewProps = {
@@ -46,7 +47,7 @@ export default function MapView({ institutions, focused, userPosition }: MapView
       <FocusController focused={focused} userPosition={userPosition} />
       {institutions.map((institution) => {
         if (institution.latitude == null || institution.longitude == null) return null;
-        const directionsUrl = `https://www.openstreetmap.org/directions?engine=fossgis_osrm_car&route=;${institution.latitude},${institution.longitude}`;
+        const directionsUrl = getDirectionsUrl(institution);
         return (
           <Marker
             key={institution.id}
@@ -57,12 +58,13 @@ export default function MapView({ institutions, focused, userPosition }: MapView
               <div className="map-popup">
                 <span>{categoryLabels[institution.category]}</span>
                 <strong>{institution.name}</strong>
+                <small className={`popup-trust ${institution.confidence}`}>{confidenceLabels[institution.confidence]}</small>
                 <p>{institution.address}</p>
                 <p>{institution.city} / {institution.district}</p>
                 {institution.phone && <a href={`tel:${institution.phone.replace(/\s/g, "")}`}>{institution.phone}</a>}
                 {institution.dutyDate && <small>{institution.dutyDate}</small>}
-                <a href={directionsUrl} target="_blank" rel="noreferrer">Yol tarifi</a>
-                {institution.sourceUrl && <a href={institution.sourceUrl} target="_blank" rel="noreferrer">Kaynak: {institution.sourceName}</a>}
+                <a className="popup-button" href={directionsUrl} target="_blank" rel="noreferrer">Yol tarifi al</a>
+                {institution.sourceUrl && <a href={institution.sourceUrl} target="_blank" rel="noreferrer">Resmi kaynaktan doğrula: {institution.sourceName}</a>}
                 <small>Güncelleme: {new Date(institution.lastUpdated).toLocaleDateString("tr-TR")}</small>
               </div>
             </Popup>
@@ -77,4 +79,3 @@ export default function MapView({ institutions, focused, userPosition }: MapView
     </MapContainer>
   );
 }
-

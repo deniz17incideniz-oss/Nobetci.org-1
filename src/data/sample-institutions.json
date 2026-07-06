@@ -298,5 +298,50 @@
     "sourceName": "Sağlık Bakanlığı",
     "sourceUrl": "https://www.saglik.gov.tr/",
     "lastUpdated": "2026-07-06T06:00:00.000Z"
+  },
+  {
+    "id": "ank-eczane-1",
+    "name": "Çankaya Örnek Nöbetçi Eczanesi",
+    "category": "pharmacy",
+    "city": "Ankara",
+    "district": "Çankaya",
+    "address": "Kızılay Mahallesi, Çankaya, Ankara",
+    "phone": "0312 000 00 09",
+    "latitude": 39.9208,
+    "longitude": 32.8541,
+    "dutyDate": "MVP örnek kaydı",
+    "sourceName": "Örnek veri — resmi kaynaktan doğrulayın",
+    "sourceUrl": "https://www.turkiye.gov.tr/",
+    "lastUpdated": "2026-07-06T06:00:00.000Z"
+  },
+  {
+    "id": "bur-eczane-1",
+    "name": "Osmangazi Örnek Nöbetçi Eczanesi",
+    "category": "pharmacy",
+    "city": "Bursa",
+    "district": "Osmangazi",
+    "address": "Osmangazi, Bursa",
+    "phone": "0224 000 00 10",
+    "latitude": 40.195,
+    "longitude": 29.06,
+    "dutyDate": "MVP örnek kaydı",
+    "sourceName": "Örnek veri — resmi kaynaktan doğrulayın",
+    "sourceUrl": "https://www.turkiye.gov.tr/",
+    "lastUpdated": "2026-07-06T06:00:00.000Z"
+  },
+  {
+    "id": "ist-noter-1",
+    "name": "Kadıköy Örnek Nöbetçi Noteri",
+    "category": "notary",
+    "city": "İstanbul",
+    "district": "Kadıköy",
+    "address": "Caferağa Mahallesi, Kadıköy, İstanbul",
+    "phone": "0216 000 00 11",
+    "latitude": 40.9905,
+    "longitude": 29.0288,
+    "dutyDate": "MVP örnek kaydı",
+    "sourceName": "Örnek veri — TNB üzerinden doğrulayın",
+    "sourceUrl": "https://www.tnb.org.tr/",
+    "lastUpdated": "2026-07-06T06:00:00.000Z"
   }
 ]
