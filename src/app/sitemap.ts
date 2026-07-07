@@ -3,7 +3,7 @@ import { slugifyTurkish } from "@/data/cities";
 import { getInstitutions } from "@/lib/data";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://nobetci-org.vercel.app";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://nobetci.info";
   const staticPaths = ["", "/harita", "/nobetci-eczane", "/nobetci-noter", "/acil-servis", "/belediye-hizmetleri", "/about", "/privacy", "/contact"];
   const institutions = getInstitutions();
   const categoryPaths = [

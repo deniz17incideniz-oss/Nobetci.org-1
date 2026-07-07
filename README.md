@@ -39,7 +39,7 @@ npm run update-data
 ## Ortam değişkenleri
 
 ```env
-NEXT_PUBLIC_SITE_URL=https://nobetci.org
+NEXT_PUBLIC_SITE_URL=https://nobetci.info
 NEXT_PUBLIC_SHOW_SAMPLE_DATA=false
 CRON_SECRET=uzun-rastgele-bir-deger
 NOMINATIM_USER_AGENT=Nobetci.org/0.1 (contact@example.com)

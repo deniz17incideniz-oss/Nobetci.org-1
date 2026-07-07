@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://nobetci-org.vercel.app";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://nobetci.info";
 
 export function createMetadata(title: string, description: string, path = "/"): Metadata {
   const url = new URL(path, siteUrl).toString();
