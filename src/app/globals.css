@@ -84,12 +84,15 @@ h1 { max-width: 800px; margin: 18px 0 14px; font-size: clamp(38px, 6vw, 66px); l
 .compact-hero h1 { margin-bottom: 10px; font-size: clamp(34px, 5vw, 52px); }
 .quick-action-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
 .big-action { display: inline-flex; align-items: center; justify-content: center; min-height: 54px; padding: 0 20px; color: #fff; border-radius: 15px; font-weight: 950; box-shadow: 0 12px 26px rgba(15,23,42,.12); }
+.big-action span { margin-left: 8px; font-size: 15px; opacity: .86; }
 .big-action.pharmacy { background: #16a34a; }
+.big-action.pharmacy.secondary-action { background: #0f766e; }
 .big-action.notary { background: #4f46e5; }
 .big-action.hospital { background: #dc2626; }
 .big-action.municipal { background: #f97316; }
 .official-button-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
 .micro-warning { margin: 12px 0 4px; color: #64748b; font-size: 14px; line-height: 1.55; }
+.source-note { margin: -2px 0 8px; color: #475569; font-size: 13px; font-weight: 800; }
 .municipal-card-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
 .municipal-card-grid article { padding: 18px; background: #fff; border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 10px 24px rgba(15,23,42,.05); }
 .municipal-card-grid span { font-size: 30px; }

@@ -15,6 +15,8 @@ const municipalCards = [
 export function DirectoryPage({ kind, city }: { kind: DirectoryKind; institutions: Institution[]; city?: string; district?: string }) {
   const config = directoryConfig[kind];
   const pharmacySource = kind === "pharmacy" ? getPharmacyOfficialSource(city) : undefined;
+  const cityPharmacyButton = city ? `${city} Nöbetçi Eczanelerini Gör` : "Nöbetçi Eczaneleri Gör";
+  const cityEdevletButton = city ? `${city} Eczane Bilgisini e-Devlet’te Kontrol Et` : "Eczane Bilgisini e-Devlet’te Kontrol Et";
   const heading = city && kind === "pharmacy" ? `${city} Nöbetçi Eczane` : config.heading;
   const description = city && kind === "pharmacy"
     ? "Güncel nöbetçi eczane listesini resmî kaynaklardan kontrol edin."
@@ -41,10 +43,11 @@ export function DirectoryPage({ kind, city }: { kind: DirectoryKind; institution
           <>
             <div className="quick-action-row">
               {pharmacySource?.sourceUrl && pharmacySource.sourceUrl !== titckPharmacyUrl && (
-                <a className="big-action pharmacy" href={pharmacySource.sourceUrl} target="_blank" rel="noreferrer">Resmî Kaynaktan Doğrula</a>
+                <a className="big-action pharmacy" href={pharmacySource.sourceUrl} target="_blank" rel="noreferrer">{cityPharmacyButton} <span aria-hidden="true">↗</span></a>
               )}
-              <a className="big-action pharmacy" href={titckPharmacyUrl} target="_blank" rel="noreferrer">e-Devlet TİTCK’ta Sorgula</a>
+              <a className="big-action pharmacy secondary-action" href={titckPharmacyUrl} target="_blank" rel="noreferrer">{cityEdevletButton} <span aria-hidden="true">↗</span></a>
             </div>
+            <p className="source-note">Güncel liste resmî kaynakta açılır.</p>
             <p className="micro-warning">Nöbetçi eczane bilgileri değişebilir. Gitmeden önce adres ve telefonu doğrulayın.</p>
             <CitySelector title={city ? "Diğer Şehirler" : "Şehir Seç"} />
           </>
