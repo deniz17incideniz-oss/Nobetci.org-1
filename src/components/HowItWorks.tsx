@@ -1,6 +1,6 @@
 const steps = [
-  ["1", "Şehrini seç", "Büyükşehir rehberlerinden bulunduğun şehri aç."],
-  ["2", "Kurum türünü seç", "Eczane, noter veya acil servis rehberine ilerle."],
+  ["1", "Kurum türünü seç", "Eczane, noter, acil servis veya belediye rehberine ilerle."],
+  ["2", "Şehrini seç", "Büyükşehir rehberlerinden bulunduğun şehri aç."],
   ["3", "Resmî kaynaktan doğrula", "Yola çıkmadan önce güncel bilgiyi yetkili kaynaktan kontrol et."],
 ] as const;
 

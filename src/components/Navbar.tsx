@@ -9,9 +9,10 @@ export function Navbar() {
           <Logo />
         </Link>
         <nav aria-label="Ana menü">
-          <Link href="/harita">Harita</Link>
           <Link href="/nobetci-eczane">Eczane</Link>
           <Link href="/nobetci-noter">Noter</Link>
+          <Link href="/acil-servis">Acil</Link>
+          <Link href="/belediye-hizmetleri">Belediye</Link>
           <Link href="/about">Hakkında</Link>
           <Link href="/contact">İletişim</Link>
         </nav>

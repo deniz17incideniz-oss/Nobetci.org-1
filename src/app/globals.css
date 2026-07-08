@@ -41,6 +41,10 @@ nav a:hover, nav a:focus-visible { color: var(--blue); }
 h1 { max-width: 800px; margin: 18px 0 14px; font-size: clamp(38px, 6vw, 66px); line-height: 1.04; letter-spacing: -.055em; }
 .hero p, .lead { max-width: 750px; margin: 0; color: var(--muted); font-size: clamp(18px, 2vw, 22px); line-height: 1.65; }
 .hero .hero-secondary { margin-top: 8px; font-size: 16px; }
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+.hero-actions a { display: inline-flex; align-items: center; min-height: 46px; padding: 0 16px; color: #fff; background: var(--blue); border-radius: 12px; font-weight: 900; box-shadow: 0 10px 24px rgba(37,99,235,.16); }
+.hero-actions a:nth-child(2) { background: #4f46e5; }
+.hero-actions a:nth-child(3) { background: #dc2626; }
 .hero-link { margin-top: 28px; display: inline-flex; gap: 9px; align-items: center; color: var(--blue-dark); font-weight: 800; }
 
 .explorer { padding-block: 38px 70px; scroll-margin-top: 80px; }
@@ -74,13 +78,14 @@ h1 { max-width: 800px; margin: 18px 0 14px; font-size: clamp(38px, 6vw, 66px); l
 .official-source-actions a { display: inline-flex; align-items: center; min-height: 42px; padding: 0 14px; color: #fff; background: var(--blue); border: 1px solid var(--blue); border-radius: 10px; font-size: 13px; font-weight: 900; }
 .official-source-actions a:last-child { color: #1d4ed8; background: #fff; border-color: #93c5fd; }
 .directory-notice { padding-top: 24px; }
+.guide-mode-panel { display: grid; gap: 18px; padding-block: 28px 12px; }
 .official-source-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 .official-source-card { display: flex; flex-direction: column; gap: 12px; padding: 22px; background: #fff; border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 12px 30px rgba(15,23,42,.06); }
 .official-source-card h3 { margin: 0; font-size: 20px; line-height: 1.3; }
 .official-source-card p { margin: 0; color: var(--muted); line-height: 1.6; }
 .official-source-card strong { color: #1e3a5f; font-size: 14px; }
 .source-status { align-self: flex-start; padding: 6px 9px; border-radius: 999px; font-size: 12px; font-weight: 900; }
-.source-status.verified { color: #166534; background: #dcfce7; }
+.source-status.official { color: #166534; background: #dcfce7; }
 .source-status.general_official { color: #1d4ed8; background: #dbeafe; }
 .source-status.needs_review { color: #854d0e; background: #fef3c7; }
 .official-source-card-actions { display: flex; gap: 9px; flex-wrap: wrap; margin-top: auto; }
@@ -171,6 +176,17 @@ h1 { max-width: 800px; margin: 18px 0 14px; font-size: clamp(38px, 6vw, 66px); l
 .quick-card h2 { margin: 0 0 10px; font-size: 22px; }
 .quick-card p { min-height: 72px; margin: 0; color: var(--muted); line-height: 1.6; }
 .quick-card a { display: inline-flex; margin-top: 18px; padding: 11px 14px; color: #fff; background: var(--blue); border-radius: 10px; font-weight: 900; }
+.institution-type-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.institution-type-card { position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 12px; min-height: 260px; padding: 24px; color: #fff; border-radius: 22px; box-shadow: 0 16px 34px rgba(15,23,42,.12); }
+.institution-type-card::after { content: ""; position: absolute; inset: auto -40px -55px auto; width: 150px; height: 150px; border-radius: 50%; background: rgba(255,255,255,.16); }
+.institution-type-card > span { font-size: 34px; }
+.institution-type-card h3 { margin: 0; font-size: 22px; line-height: 1.25; }
+.institution-type-card p { margin: 0; color: rgba(255,255,255,.88); line-height: 1.55; }
+.institution-type-card a { display: inline-flex; align-items: center; align-self: flex-start; min-height: 40px; margin-top: auto; padding: 0 12px; color: #0f172a; background: #fff; border-radius: 10px; font-size: 13px; font-weight: 900; }
+.institution-type-card.pharmacy { background: linear-gradient(135deg, #16a34a, #15803d); }
+.institution-type-card.notary { background: linear-gradient(135deg, #4f46e5, #1d4ed8); }
+.institution-type-card.hospital { background: linear-gradient(135deg, #dc2626, #991b1b); }
+.institution-type-card.municipal { background: linear-gradient(135deg, #f97316, #c2410c); }
 .city-chip-grid { display: flex; gap: 10px; flex-wrap: wrap; }
 .city-chip-grid a { display: inline-flex; padding: 10px 13px; background: #fff; border: 1px solid var(--line); border-radius: 999px; color: #1e3a5f; font-weight: 800; }
 .city-chip-grid a:hover { color: #fff; background: var(--blue); border-color: var(--blue); }
@@ -193,6 +209,11 @@ h1 { max-width: 800px; margin: 18px 0 14px; font-size: clamp(38px, 6vw, 66px); l
 .guide-stack section { padding: 18px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; }
 .guide-stack h3 { margin: 0 0 8px; color: var(--navy); font-size: 18px; }
 .guide-stack p { margin: 0; }
+.guide-card-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.guide-card-grid article { padding: 22px; background: #fff; border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 10px 26px rgba(15,23,42,.05); }
+.guide-card-grid h3 { margin: 0 0 9px; font-size: 18px; }
+.guide-card-grid p { margin: 0; color: var(--muted); line-height: 1.6; }
+.trust-notice { margin: 38px 0 70px; padding: 20px; color: #713f12; background: #fffbeb; border: 1px solid #fde68a; border-radius: 16px; line-height: 1.65; font-weight: 700; }
 .emergency-warning { padding: 14px 16px; color: #991b1b; background: #fef2f2; border: 1px solid #fecaca; border-radius: 10px; font-weight: 800; }
 .contact-email { color: var(--blue); font-size: 21px; font-weight: 800; }
 .placeholder-note { margin-top: 8px !important; font-size: 13px !important; }
@@ -210,7 +231,7 @@ h1 { max-width: 800px; margin: 18px 0 14px; font-size: clamp(38px, 6vw, 66px); l
   .results-panel { max-height: none; }
   .results-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; overflow: visible; }
   .institution-card + .institution-card { margin-top: 0; }
-  .popular-links, .official-source-grid { grid-template-columns: repeat(2, 1fr); }
+  .popular-links, .official-source-grid, .institution-type-grid, .guide-card-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 640px) {
@@ -235,7 +256,8 @@ h1 { max-width: 800px; margin: 18px 0 14px; font-size: clamp(38px, 6vw, 66px); l
   .location-filters { grid-template-columns: 1fr; }
   .toggle-row { display: grid; gap: 12px; }
   .filters-panel { padding: 12px; }
-  .popular-links, .steps-grid, .trust-grid, .official-source-grid { grid-template-columns: 1fr; }
+  .popular-links, .steps-grid, .trust-grid, .official-source-grid, .institution-type-grid, .guide-card-grid { grid-template-columns: 1fr; }
+  .institution-type-card { min-height: 220px; }
   .quick-cards { grid-template-columns: 1fr; }
   .content-section { padding-top: 55px; }
   .official-source-notice { grid-template-columns: 1fr; }

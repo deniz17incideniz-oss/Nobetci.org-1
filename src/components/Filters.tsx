@@ -46,7 +46,7 @@ export function Filters(props: FiltersProps) {
       </div>
       <div className="toggle-row">
         <label><input type="checkbox" checked={props.nearbyOnly} onChange={(event) => props.onNearbyOnlyChange(event.target.checked)} />Yakınımdakiler</label>
-        <label><input type="checkbox" checked={props.officialOnly} onChange={(event) => props.onOfficialOnlyChange(event.target.checked)} />Sadece resmî/canlı veri</label>
+        <label><input type="checkbox" checked={props.officialOnly} onChange={(event) => props.onOfficialOnlyChange(event.target.checked)} />Sadece resmî kaynaklı kayıt</label>
         <label><input type="checkbox" checked={props.phoneOnly} onChange={(event) => props.onPhoneOnlyChange(event.target.checked)} />Telefonu olanlar</label>
       </div>
     </div>

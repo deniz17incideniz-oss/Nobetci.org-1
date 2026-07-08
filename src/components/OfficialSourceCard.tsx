@@ -1,7 +1,7 @@
 import type { OfficialSource } from "@/data/officialSources";
 
 const statusLabels: Record<OfficialSource["status"], string> = {
-  verified: "Resmî kaynak",
+  official: "Resmî kaynak",
   general_official: "Genel resmî sorgu",
   needs_review: "İnceleme bekliyor",
 };
@@ -14,7 +14,7 @@ export function OfficialSourceCard({ source }: { source: OfficialSource }) {
       <p>{source.description}</p>
       <strong>{source.sourceName}</strong>
       <div className="official-source-card-actions">
-        <a href={source.sourceUrl} target="_blank" rel="noreferrer">Resmî Kaynağa Git</a>
+        <a href={source.sourceUrl} target={source.sourceUrl.startsWith("/") ? undefined : "_blank"} rel={source.sourceUrl.startsWith("/") ? undefined : "noreferrer"}>Resmî Kaynağa Git</a>
         {source.secondarySourceName && source.secondarySourceUrl && source.secondarySourceUrl !== source.sourceUrl && (
           <a href={source.secondarySourceUrl} target="_blank" rel="noreferrer">{source.secondarySourceName}</a>
         )}

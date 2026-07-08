@@ -37,6 +37,6 @@ export function getLiveInstitutions(): Institution[] {
 export const confidenceLabels: Record<Institution["confidence"], string> = {
   official: "Resmi kaynak",
   verified: "Doğrulanmış",
-  sample: "Demo veri",
+  sample: "Örnek veri",
   unknown: "Kaynak bekleniyor",
 };

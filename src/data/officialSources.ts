@@ -4,14 +4,14 @@ export type OfficialSource = {
   id: string;
   city?: string;
   citySlug?: string;
-  category: "pharmacy" | "notary" | "emergency" | "hospital";
+  category: "pharmacy" | "notary" | "emergency" | "hospital" | "municipal";
   title: string;
   description: string;
   sourceName: string;
   sourceUrl: string;
   secondarySourceName?: string;
   secondarySourceUrl?: string;
-  status: "verified" | "general_official" | "needs_review";
+  status: "official" | "general_official" | "needs_review";
 };
 
 export const titckPharmacyUrl = "https://www.turkiye.gov.tr/saglik-titck-nobetci-eczane-sorgulama";
@@ -35,7 +35,7 @@ export const generalOfficialSources: OfficialSource[] = [
     description: "Hafta sonu ve nöbetçi noter duyurularını Türkiye Noterler Birliği kaynağından sorgulayabilirsiniz.",
     sourceName: "Türkiye Noterler Birliği",
     sourceUrl: notarySourceUrl,
-    status: "verified",
+    status: "official",
   },
   {
     id: "112-acil-cagri-merkezi",
@@ -44,7 +44,16 @@ export const generalOfficialSources: OfficialSource[] = [
     description: "Acil durumda doğrudan 112 aranmalıdır. Bu bağlantı bilgilendirme amaçlı resmî kaynağa gider.",
     sourceName: "112 Acil Çağrı Merkezi",
     sourceUrl: emergencySourceUrl,
-    status: "verified",
+    status: "official",
+  },
+  {
+    id: "yerel-belediye-ariza-hatlari",
+    category: "municipal",
+    title: "Yerel Belediye ve Arıza Hatları",
+    description: "Su, elektrik, doğalgaz, zabıta ve belediye hizmetleri için kendi şehrinizin resmî kurum sayfalarını kontrol edin.",
+    sourceName: "Şehir belediyesi ve yetkili kurumlar",
+    sourceUrl: "/belediye-hizmetleri",
+    status: "general_official",
   },
 ];
 
@@ -85,7 +94,7 @@ const pharmacyOverrides: Partial<Record<(typeof majorCities)[number], Pick<Offic
   İstanbul: {
     sourceName: "İstanbul Eczacı Odası",
     sourceUrl: "https://www.istanbuleczaciodasi.org.tr/nobetci-eczane/",
-    status: "verified",
+    status: "official",
   },
 };
 

@@ -78,7 +78,7 @@ export function HomeExplorer({ institutions, initialCategory, initialCity = "", 
   const pharmacySource = getPharmacyOfficialSource(city);
   const isOfficialPharmacyGuideMode = Boolean(pharmacySource) && (categories.length === 0 || categories.includes("pharmacy"));
   const emptyStateMessage = isOfficialPharmacyGuideMode
-    ? `${city} için doğrudan canlı veri entegrasyonu henüz aktif değildir. Güncel listeyi aşağıdaki resmî kaynaklardan doğrulayabilirsiniz.`
+    ? `${city} için güncel listeyi aşağıdaki resmî kaynaklardan doğrulayabilirsiniz.`
     : undefined;
   const shouldShowMap = filtered.length > 0;
 
@@ -129,14 +129,14 @@ export function HomeExplorer({ institutions, initialCategory, initialCity = "", 
         onDutyChange={setDuty} onOfficialOnlyChange={setOfficialOnly} onPhoneOnlyChange={setPhoneOnly}
         onNearbyOnlyChange={handleNearbyChange}
       />
-      {hasSampleData && <div className="sample-notice"><strong>Demo görünümü:</strong> Bu kayıtlar gerçek nöbet bilgisi değildir ve “Demo veri” etiketiyle gösterilir. Gitmeden önce kurumun resmi kaynağından doğrulayın.</div>}
+      {hasSampleData && <div className="sample-notice"><strong>Geliştirme örnekleri:</strong> Bu kayıtlar gerçek nöbet bilgisi değildir. Gitmeden önce kurumun resmî kaynağından doğrulayın.</div>}
       {showIstanbulPharmacyNotice && isOfficialPharmacyGuideMode && <PharmacyOfficialSourceNotice city={city} />}
       <div className="explorer-grid">
         {shouldShowMap ? (
           <div className="map-shell"><MapView institutions={filtered} focused={focused} userPosition={userPosition} /></div>
         ) : (
           <div className="map-placeholder">
-            <strong>Canlı harita özelliği resmî veri entegrasyonu ile açılacak.</strong>
+            <strong>Harita alanı yalnızca doğrulanmış kurum kaydı olduğunda gösterilir.</strong>
             <p>Şimdilik güncel nöbet bilgilerini yukarıdaki resmî kaynak bağlantılarından doğrulayabilirsiniz.</p>
           </div>
         )}
