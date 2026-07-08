@@ -78,8 +78,9 @@ export function HomeExplorer({ institutions, initialCategory, initialCity = "", 
   const pharmacySource = getPharmacyOfficialSource(city);
   const isOfficialPharmacyGuideMode = Boolean(pharmacySource) && (categories.length === 0 || categories.includes("pharmacy"));
   const emptyStateMessage = isOfficialPharmacyGuideMode
-    ? `${city} için canlı nöbetçi eczane verisi henüz doğrudan bağlanmadı. Güncel listeyi resmî kaynaklardan kontrol edebilirsiniz.`
+    ? `${city} için doğrudan canlı veri entegrasyonu henüz aktif değildir. Güncel listeyi aşağıdaki resmî kaynaklardan doğrulayabilirsiniz.`
     : undefined;
+  const shouldShowMap = filtered.length > 0;
 
   function locateUser(enableNearby = false) {
     if (!navigator.geolocation) {
@@ -131,9 +132,16 @@ export function HomeExplorer({ institutions, initialCategory, initialCity = "", 
       {hasSampleData && <div className="sample-notice"><strong>Demo görünümü:</strong> Bu kayıtlar gerçek nöbet bilgisi değildir ve “Demo veri” etiketiyle gösterilir. Gitmeden önce kurumun resmi kaynağından doğrulayın.</div>}
       {showIstanbulPharmacyNotice && isOfficialPharmacyGuideMode && <PharmacyOfficialSourceNotice city={city} />}
       <div className="explorer-grid">
-        <div className="map-shell"><MapView institutions={filtered} focused={focused} userPosition={userPosition} /></div>
+        {shouldShowMap ? (
+          <div className="map-shell"><MapView institutions={filtered} focused={focused} userPosition={userPosition} /></div>
+        ) : (
+          <div className="map-placeholder">
+            <strong>Canlı harita özelliği resmî veri entegrasyonu ile açılacak.</strong>
+            <p>Şimdilik güncel nöbet bilgilerini yukarıdaki resmî kaynak bağlantılarından doğrulayabilirsiniz.</p>
+          </div>
+        )}
         <aside className="results-panel" aria-label="Kurum sonuçları">
-          <div className="results-heading"><h2>Kurumlar</h2><span>{filtered.length} sonuç</span></div>
+          <div className="results-heading"><h2>Kurumlar</h2>{filtered.length > 0 ? <span>{filtered.length} sonuç</span> : <span>Resmî kaynak rehberi</span>}</div>
           <div className="results-list">
             {results.length > 0 ? results.map(({ institution, distance }) => <InstitutionCard key={institution.id} institution={institution} distance={distance} onShow={setFocused} />) : <EmptyState liveDataUnavailable={institutions.length === 0} message={emptyStateMessage} />}
           </div>

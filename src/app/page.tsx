@@ -1,12 +1,13 @@
 import { HowItWorks } from "@/components/HowItWorks";
+import { OfficialSourceCard } from "@/components/OfficialSourceCard";
 import { TrustSection } from "@/components/TrustSection";
-import { majorCities } from "@/data/officialSources";
+import { generalOfficialSources, majorCities } from "@/data/officialSources";
 import { slugifyTurkish } from "@/data/cities";
 import { absoluteSiteUrl, createMetadata } from "@/lib/seo";
 
 export const metadata = createMetadata(
-  "Nöbetçi Kurum Rehberi | Eczane, Noter ve Acil Servis Bilgileri",
-  "Türkiye’de nöbetçi eczane, noter ve acil servis bilgilerine hızlıca ulaşın. Şehrinizi seçin, resmî kaynaklardan güncel bilgileri doğrulayın.",
+  "Nöbetçi Kurum Rehberi | Eczane, Noter ve Acil Servis",
+  "Türkiye’de nöbetçi eczane, noter ve acil servis bilgileri için resmî kaynaklara hızlıca ulaşın. Şehrinizi seçin, güncel bilgileri doğrulayın.",
   "/",
 );
 
@@ -32,6 +33,15 @@ export default function HomePage() {
           <article className="quick-card"><h2>Acil Servis</h2><p>Acil durumda 112’yi arayın. Hastane ve acil servis bilgileri için doğrulama rehberini inceleyin.</p><a href="/acil-servis">Rehberi aç</a></article>
         </section>
         <div className="global-warning">Bu platform bilgilendirme amaçlıdır. Nöbet bilgileri değişebilir. Sağlık, noterlik veya acil işlemler öncesinde resmi kaynaklardan doğrulama yapınız.</div>
+        <section className="content-section" aria-labelledby="official-source-title">
+          <div className="section-heading">
+            <span className="eyebrow">Güvenli yönlendirme</span>
+            <h2 id="official-source-title">Resmî Kaynaklardan Doğrulayın</h2>
+          </div>
+          <div className="official-source-grid">
+            {generalOfficialSources.map((source) => <OfficialSourceCard key={source.id} source={source} />)}
+          </div>
+        </section>
         <section className="content-section" aria-labelledby="major-city-title">
           <div className="section-heading">
             <span className="eyebrow">Şehre göre eczane rehberi</span>
