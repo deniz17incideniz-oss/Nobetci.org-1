@@ -5,7 +5,7 @@ import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://nobetci.info"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://nobetci-org.vercel.app"),
   title: {
     default: "Nobetci.org | Türkiye Nöbetçi Eczane, Noter ve Acil Kurum Haritası",
     template: "%s | Nobetci.org",

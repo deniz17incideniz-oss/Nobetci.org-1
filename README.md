@@ -39,7 +39,7 @@ npm run update-data
 ## Ortam değişkenleri
 
 ```env
-NEXT_PUBLIC_SITE_URL=https://nobetci.info
+NEXT_PUBLIC_SITE_URL=https://nobetci-org.vercel.app
 NEXT_PUBLIC_SHOW_SAMPLE_DATA=false
 CRON_SECRET=uzun-rastgele-bir-deger
 NOMINATIM_USER_AGENT=Nobetci.org/0.1 (contact@example.com)
@@ -135,7 +135,7 @@ Her dizin sayfası benzersiz title/description, canonical URL, Open Graph, Twitt
 1. Vercel’de GitHub reposunu `nobetci-org` projesine bağlayın.
 2. Framework preset olarak Next.js kullanın.
 3. Production ortam değişkenlerini ekleyin.
-4. `NEXT_PUBLIC_SITE_URL` değerini gerçek alan adına ayarlayın.
+4. `NEXT_PUBLIC_SITE_URL` değerini geçici production adresi olan `https://nobetci-org.vercel.app` olarak ayarlayın.
 5. Ana dala push sonrasında production deployment sonucunu kontrol edin.
 
 CLI ile:
@@ -145,7 +145,7 @@ npx vercel@latest whoami
 npx vercel@latest --prod
 ```
 
-Özel `nobetci.org` alan adı Vercel projesine ayrıca bağlanmalı ve DNS kayıtları doğrulanmalıdır.
+Geçici production adresi `https://nobetci-org.vercel.app` olarak kullanılır. `https://nobetci.info` alan adı Türkiye'de erişim engelli göründüğü için production adresi olarak kullanılmamalıdır.
 
 ## AdSense hazırlığı
 
@@ -158,6 +158,6 @@ Hakkında, gizlilik ve iletişim sayfaları; kaynak doğrulama uyarıları; özg
 - Her kategori için kullanım izni doğrulanmış gerçek kaynak/API bağlamak
 - Tüm ilçelerin resmi listesini `cities.ts` içine eklemek
 - Gerçek e-posta kutusunu etkinleştirmek
-- `nobetci.org` alan adı ve DNS ayarlarını tamamlamak
+- `nobetci.info` erişim engeli veya alternatif özel alan adı kararını netleştirmek
 - Nominatim yerine production trafiğine uygun cache’li geocoding servisi seçmek
 - Gerçek veri geldikten sonra içerik doğrulama ve gözlemleme alarmları eklemek
