@@ -6,6 +6,7 @@ import { EmptyState } from "@/components/EmptyState";
 import { Filters, type DutyFilter } from "@/components/Filters";
 import { InstitutionCard } from "@/components/InstitutionCard";
 import { LoadingState } from "@/components/LoadingState";
+import { IstanbulPharmacyNotice } from "@/components/OfficialSourceNotice";
 import { SearchBar } from "@/components/SearchBar";
 import { categoryLabels } from "@/lib/data";
 import { distanceInKm } from "@/lib/distance";
@@ -26,9 +27,10 @@ type HomeExplorerProps = {
   initialCategory?: InstitutionCategory;
   initialCity?: string;
   initialDistrict?: string;
+  showIstanbulPharmacyNotice?: boolean;
 };
 
-export function HomeExplorer({ institutions, initialCategory, initialCity = "", initialDistrict = "" }: HomeExplorerProps) {
+export function HomeExplorer({ institutions, initialCategory, initialCity = "", initialDistrict = "", showIstanbulPharmacyNotice = true }: HomeExplorerProps) {
   const hasSampleData = institutions.some((institution) => institution.confidence === "sample");
   const [query, setQuery] = useState("");
   const [categories, setCategories] = useState<InstitutionCategory[]>(initialCategory ? [initialCategory] : []);
@@ -72,6 +74,10 @@ export function HomeExplorer({ institutions, initialCategory, initialCity = "", 
   }, [categories, city, district, duty, institutions, nearbyOnly, officialOnly, phoneOnly, query, userPosition]);
 
   const filtered = results.map(({ institution }) => institution);
+  const isIstanbulPharmacyMode = city === "İstanbul" && (categories.length === 0 || categories.includes("pharmacy"));
+  const emptyStateMessage = isIstanbulPharmacyMode
+    ? "İstanbul için canlı nöbetçi eczane verisi henüz doğrudan bağlanmadı. Güncel listeyi resmî kaynaklardan kontrol edebilirsiniz."
+    : undefined;
 
   function locateUser(enableNearby = false) {
     if (!navigator.geolocation) {
@@ -121,12 +127,13 @@ export function HomeExplorer({ institutions, initialCategory, initialCity = "", 
         onNearbyOnlyChange={handleNearbyChange}
       />
       {hasSampleData && <div className="sample-notice"><strong>Demo görünümü:</strong> Bu kayıtlar gerçek nöbet bilgisi değildir ve “Demo veri” etiketiyle gösterilir. Gitmeden önce kurumun resmi kaynağından doğrulayın.</div>}
+      {showIstanbulPharmacyNotice && isIstanbulPharmacyMode && <IstanbulPharmacyNotice />}
       <div className="explorer-grid">
         <div className="map-shell"><MapView institutions={filtered} focused={focused} userPosition={userPosition} /></div>
         <aside className="results-panel" aria-label="Kurum sonuçları">
           <div className="results-heading"><h2>Kurumlar</h2><span>{filtered.length} sonuç</span></div>
           <div className="results-list">
-            {results.length > 0 ? results.map(({ institution, distance }) => <InstitutionCard key={institution.id} institution={institution} distance={distance} onShow={setFocused} />) : <EmptyState liveDataUnavailable={institutions.length === 0} />}
+            {results.length > 0 ? results.map(({ institution, distance }) => <InstitutionCard key={institution.id} institution={institution} distance={distance} onShow={setFocused} />) : <EmptyState liveDataUnavailable={institutions.length === 0} message={emptyStateMessage} />}
           </div>
         </aside>
       </div>
