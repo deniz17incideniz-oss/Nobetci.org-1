@@ -1,11 +1,11 @@
 import { slugifyTurkish } from "@/data/cities";
 import { majorCities } from "@/data/officialSources";
 
-export function CitySelector({ title = "Şehrinizi Seçin", basePath = "nobetci-eczane" }: { title?: string; basePath?: string }) {
+export function CitySelector({ title = "Şehir Seç", basePath = "nobetci-eczane" }: { title?: string; basePath?: string }) {
   return (
     <section className="content-section" aria-labelledby="city-selector-title">
       <div className="section-heading">
-        <span className="eyebrow">Büyükşehir rehberleri</span>
+        <span className="eyebrow">2. Adım</span>
         <h2 id="city-selector-title">{title}</h2>
       </div>
       <div className="city-chip-grid">

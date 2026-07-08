@@ -79,6 +79,22 @@ h1 { max-width: 800px; margin: 18px 0 14px; font-size: clamp(38px, 6vw, 66px); l
 .official-source-actions a:last-child { color: #1d4ed8; background: #fff; border-color: #93c5fd; }
 .directory-notice { padding-top: 24px; }
 .guide-mode-panel { display: grid; gap: 18px; padding-block: 28px 12px; }
+.simple-guide { padding-block: 28px 54px; }
+.compact-hero { padding: 42px 0 34px; }
+.compact-hero h1 { margin-bottom: 10px; font-size: clamp(34px, 5vw, 52px); }
+.quick-action-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+.big-action { display: inline-flex; align-items: center; justify-content: center; min-height: 54px; padding: 0 20px; color: #fff; border-radius: 15px; font-weight: 950; box-shadow: 0 12px 26px rgba(15,23,42,.12); }
+.big-action.pharmacy { background: #16a34a; }
+.big-action.notary { background: #4f46e5; }
+.big-action.hospital { background: #dc2626; }
+.big-action.municipal { background: #f97316; }
+.official-button-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.micro-warning { margin: 12px 0 4px; color: #64748b; font-size: 14px; line-height: 1.55; }
+.municipal-card-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+.municipal-card-grid article { padding: 18px; background: #fff; border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 10px 24px rgba(15,23,42,.05); }
+.municipal-card-grid span { font-size: 30px; }
+.municipal-card-grid h2 { margin: 12px 0 7px; font-size: 17px; }
+.municipal-card-grid p { margin: 0; color: var(--muted); font-size: 14px; line-height: 1.5; }
 .official-source-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 .official-source-card { display: flex; flex-direction: column; gap: 12px; padding: 22px; background: #fff; border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 12px 30px rgba(15,23,42,.06); }
 .official-source-card h3 { margin: 0; font-size: 20px; line-height: 1.3; }
@@ -166,7 +182,8 @@ h1 { max-width: 800px; margin: 18px 0 14px; font-size: clamp(38px, 6vw, 66px); l
 .directory-hero h1 { margin-bottom: 12px; font-size: clamp(36px, 5vw, 56px); }
 .directory-hero p { max-width: 760px; margin: 0; color: var(--muted); font-size: 18px; line-height: 1.65; }
 .global-warning, .info-warning { padding: 15px 17px; color: #713f12; background: #fffbeb; border: 1px solid #fde68a; border-radius: 12px; line-height: 1.55; }
-.content-section { padding: 72px 0 8px; }
+.content-section { padding: 46px 0 8px; }
+.compact-section { padding-top: 34px; }
 .section-heading h2 { margin: 14px 0 25px; font-size: clamp(28px, 4vw, 40px); letter-spacing: -.04em; }
 .popular-links { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
 .popular-links a, .report-links a { display: flex; align-items: center; justify-content: space-between; min-height: 60px; padding: 0 18px; background: #fff; border: 1px solid var(--line); border-radius: 12px; font-weight: 800; }
@@ -188,7 +205,7 @@ h1 { max-width: 800px; margin: 18px 0 14px; font-size: clamp(38px, 6vw, 66px); l
 .institution-type-card.hospital { background: linear-gradient(135deg, #dc2626, #991b1b); }
 .institution-type-card.municipal { background: linear-gradient(135deg, #f97316, #c2410c); }
 .city-chip-grid { display: flex; gap: 10px; flex-wrap: wrap; }
-.city-chip-grid a { display: inline-flex; padding: 10px 13px; background: #fff; border: 1px solid var(--line); border-radius: 999px; color: #1e3a5f; font-weight: 800; }
+.city-chip-grid a { display: inline-flex; padding: 9px 12px; background: #fff; border: 1px solid var(--line); border-radius: 999px; color: #1e3a5f; font-weight: 800; font-size: 14px; }
 .city-chip-grid a:hover { color: #fff; background: var(--blue); border-color: var(--blue); }
 .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 .steps-grid article { padding: 24px; background: #fff; border: 1px solid var(--line); border-radius: 16px; }
@@ -213,7 +230,7 @@ h1 { max-width: 800px; margin: 18px 0 14px; font-size: clamp(38px, 6vw, 66px); l
 .guide-card-grid article { padding: 22px; background: #fff; border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 10px 26px rgba(15,23,42,.05); }
 .guide-card-grid h3 { margin: 0 0 9px; font-size: 18px; }
 .guide-card-grid p { margin: 0; color: var(--muted); line-height: 1.6; }
-.trust-notice { margin: 38px 0 70px; padding: 20px; color: #713f12; background: #fffbeb; border: 1px solid #fde68a; border-radius: 16px; line-height: 1.65; font-weight: 700; }
+.trust-notice { margin: 30px 0 52px; padding: 14px 16px; color: #713f12; background: #fffbeb; border: 1px solid #fde68a; border-radius: 14px; line-height: 1.55; font-size: 14px; font-weight: 700; }
 .emergency-warning { padding: 14px 16px; color: #991b1b; background: #fef2f2; border: 1px solid #fecaca; border-radius: 10px; font-weight: 800; }
 .contact-email { color: var(--blue); font-size: 21px; font-weight: 800; }
 .placeholder-note { margin-top: 8px !important; font-size: 13px !important; }
@@ -231,7 +248,7 @@ h1 { max-width: 800px; margin: 18px 0 14px; font-size: clamp(38px, 6vw, 66px); l
   .results-panel { max-height: none; }
   .results-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; overflow: visible; }
   .institution-card + .institution-card { margin-top: 0; }
-  .popular-links, .official-source-grid, .institution-type-grid, .guide-card-grid { grid-template-columns: repeat(2, 1fr); }
+  .popular-links, .official-source-grid, .institution-type-grid, .guide-card-grid, .official-button-grid, .municipal-card-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 @media (max-width: 640px) {
@@ -242,7 +259,7 @@ h1 { max-width: 800px; margin: 18px 0 14px; font-size: clamp(38px, 6vw, 66px); l
   nav { gap: 14px; font-size: 13px; }
   nav a { display: none; }
   nav a:first-child, nav a:last-child { display: inline-flex; }
-  .hero-inner { min-height: 310px; padding-block: 50px; }
+  .hero-inner { min-height: 280px; padding-block: 42px; }
   h1 { font-size: 40px; }
   .search-panel { grid-template-columns: 1fr; }
   .location-button { min-height: 48px; }
@@ -256,7 +273,7 @@ h1 { max-width: 800px; margin: 18px 0 14px; font-size: clamp(38px, 6vw, 66px); l
   .location-filters { grid-template-columns: 1fr; }
   .toggle-row { display: grid; gap: 12px; }
   .filters-panel { padding: 12px; }
-  .popular-links, .steps-grid, .trust-grid, .official-source-grid, .institution-type-grid, .guide-card-grid { grid-template-columns: 1fr; }
+  .popular-links, .steps-grid, .trust-grid, .official-source-grid, .institution-type-grid, .guide-card-grid, .official-button-grid, .municipal-card-grid { grid-template-columns: 1fr; }
   .institution-type-card { min-height: 220px; }
   .quick-cards { grid-template-columns: 1fr; }
   .content-section { padding-top: 55px; }

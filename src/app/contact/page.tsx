@@ -17,8 +17,8 @@ export default function ContactPage() {
     <article className="container content-page">
       <span className="eyebrow">Bize ulaşın</span>
       <h1>İletişim</h1>
-      <p className="lead">Nobetci.org hakkındaki önerilerinizi, hatalı veya eksik kurum bilgilerini ve veri güncelleme taleplerinizi bize iletebilirsiniz.</p>
-      <section><h2>E-posta</h2><p><a className="contact-email" href="mailto:iletisim@nobetci.org">iletisim@nobetci.org</a></p><p>Mesajınızda kurum adını, il ve ilçeyi, düzeltilmesi gereken bilgiyi ve mümkünse resmî kaynak bağlantısını paylaşmanız incelemeyi hızlandırır.</p></section>
+      <p className="lead">Hata bildirimi, kaynak önerisi veya yanlış bilgi bildirimi için bize yazabilirsiniz.</p>
+      <section><h2>E-posta</h2><p><a className="contact-email" href="mailto:iletisim@nobetci.org">iletisim@nobetci.org</a></p></section>
       <section><h2>Hızlı bildirim</h2><div className="report-links">{reports.map((report) => <a key={report.label} href={mailto(report.subject, report.body)}>{report.label}<span aria-hidden="true">→</span></a>)}</div></section>
       <section className="warning-box"><h2>Önemli</h2><p>Bu iletişim adresi acil yardım hattı değildir. Acil durumlarda 112 Acil Çağrı Merkezi’ni arayın. Nöbet ve adres bilgilerini ilgili resmî kaynaktan doğrulayın.</p></section>
     </article>

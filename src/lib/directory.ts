@@ -10,10 +10,10 @@ export const directoryConfig: Record<DirectoryKind, {
   description: string;
   emergency?: boolean;
 }> = {
-  pharmacy: { category: "pharmacy", slug: "nobetci-eczane", label: "Nöbetçi eczane", heading: "Nöbetçi Eczane Rehberi", description: "Şehrinizdeki nöbetçi eczane bilgilerine ulaşmak için resmî kaynaklara yönlendiren sade ve güvenilir nöbetçi eczane rehberi." },
-  notary: { category: "notary", slug: "nobetci-noter", label: "Nöbetçi noter", heading: "Nöbetçi Noter Rehberi", description: "Nöbetçi noter bilgilerini Türkiye Noterler Birliği üzerinden doğrulamak için sade yönlendirme rehberi." },
-  hospital: { category: "hospital", slug: "acil-servis", label: "Acil servis", heading: "Acil Servis ve 112 Rehberi", description: "Acil durumlarda doğrudan 112 Acil Çağrı Merkezi’ni arayın. Hastane ve acil servis bilgileri değişebileceği için resmî kaynaklardan doğrulama yapmanız önerilir.", emergency: true },
-  municipal: { category: "municipal", slug: "belediye-hizmetleri", label: "Belediye hizmeti", heading: "Belediye ve Arıza Hatları Rehberi", description: "Su, elektrik, doğalgaz, zabıta ve belediye hizmetleri için şehirlerin resmî kurumlarına ulaşmadan önce bilgileri doğrulayın." },
+  pharmacy: { category: "pharmacy", slug: "nobetci-eczane", label: "Nöbetçi eczane", heading: "Nöbetçi Eczane Sorgula", description: "Şehrinizi seçin ve güncel listeyi resmî kaynaktan kontrol edin." },
+  notary: { category: "notary", slug: "nobetci-noter", label: "Nöbetçi noter", heading: "Nöbetçi Noter Sorgula", description: "Güncel nöbetçi noter bilgisini Türkiye Noterler Birliği üzerinden kontrol edin." },
+  hospital: { category: "hospital", slug: "acil-servis", label: "Acil servis", heading: "Acil Servis ve 112", description: "Acil durumda doğrudan 112 Acil Çağrı Merkezi’ni arayın.", emergency: true },
+  municipal: { category: "municipal", slug: "belediye-hizmetleri", label: "Belediye hizmeti", heading: "Belediye ve Arıza Hatları", description: "Su, elektrik, doğalgaz ve zabıta hizmetleri için şehrinizin resmî kurumlarını kontrol edin." },
   emergency: { category: "emergency", slug: "acil-kurumlar", label: "Acil kurum", heading: "7/24 Acil Kurumlar", description: "Polis, jandarma, itfaiye, AFAD ve 112 gibi acil kurumların açık adres ve iletişim bilgilerini kontrol edin.", emergency: true },
 };
 
