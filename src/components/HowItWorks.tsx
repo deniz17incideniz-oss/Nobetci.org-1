@@ -1,7 +1,7 @@
 const steps = [
-  ["1", "İl ve ilçenizi seçin", "81 il arasından bölgenizi belirleyin."],
-  ["2", "Kurum türünü belirleyin", "Eczane, noter, hastane veya acil hizmet seçin."],
-  ["3", "Yol tarifi alın", "Adresi doğrulayın ve haritadan rotanızı açın."],
+  ["1", "Şehrini seç", "Büyükşehir rehberlerinden bulunduğun şehri aç."],
+  ["2", "Kurum türünü seç", "Eczane, noter veya acil servis rehberine ilerle."],
+  ["3", "Resmî kaynaktan doğrula", "Yola çıkmadan önce güncel bilgiyi yetkili kaynaktan kontrol et."],
 ] as const;
 
 export function HowItWorks() {

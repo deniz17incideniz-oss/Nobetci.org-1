@@ -1,31 +1,22 @@
-const istanbulPharmacySources = [
-  {
-    label: "İstanbul Eczacı Odası’nda Doğrula",
-    href: "https://www.istanbuleczaciodasi.org.tr/nobetci-eczane/",
-  },
-  {
-    label: "e-Devlet TİTCK’ta Sorgula",
-    href: "https://www.turkiye.gov.tr/saglik-titck-nobetci-eczane-sorgulama",
-  },
-];
+import { getPharmacyOfficialSource, titckPharmacyUrl } from "@/data/officialSources";
+import { OfficialSourceBox } from "@/components/OfficialSourceBox";
+
+export function PharmacyOfficialSourceNotice({ city }: { city?: string }) {
+  const source = getPharmacyOfficialSource(city);
+  const cityLabel = city ? `${city} ` : "";
+  const primaryUrl = source?.sourceUrl ?? titckPharmacyUrl;
+  return (
+    <OfficialSourceBox
+      source={source}
+      message={`${cityLabel}nöbetçi eczane verisi doğrudan çekilmemektedir. Güncel nöbetçi eczane listesini resmî kaynaklardan doğrulayabilirsiniz.`}
+      primaryLabel="Resmî Kaynaktan Doğrula"
+      primaryUrl={primaryUrl}
+      secondaryLabel="e-Devlet TİTCK’ta Sorgula"
+      secondaryUrl={titckPharmacyUrl}
+    />
+  );
+}
 
 export function IstanbulPharmacyNotice() {
-  return (
-    <div className="official-source-notice" role="note">
-      <div>
-        <strong>Resmî kaynak kontrolü</strong>
-        <p>
-          İstanbul nöbetçi eczane bilgileri için resmî kaynak entegrasyonu hazırlanıyor. Güncel nöbetçi eczane
-          listesini İstanbul Eczacı Odası üzerinden doğrulayabilirsiniz.
-        </p>
-      </div>
-      <div className="official-source-actions">
-        {istanbulPharmacySources.map((source) => (
-          <a key={source.href} href={source.href} target="_blank" rel="noreferrer">
-            {source.label}
-          </a>
-        ))}
-      </div>
-    </div>
-  );
+  return <PharmacyOfficialSourceNotice city="İstanbul" />;
 }

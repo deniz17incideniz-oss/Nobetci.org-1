@@ -6,8 +6,9 @@ import { EmptyState } from "@/components/EmptyState";
 import { Filters, type DutyFilter } from "@/components/Filters";
 import { InstitutionCard } from "@/components/InstitutionCard";
 import { LoadingState } from "@/components/LoadingState";
-import { IstanbulPharmacyNotice } from "@/components/OfficialSourceNotice";
+import { PharmacyOfficialSourceNotice } from "@/components/OfficialSourceNotice";
 import { SearchBar } from "@/components/SearchBar";
+import { getPharmacyOfficialSource } from "@/data/officialSources";
 import { categoryLabels } from "@/lib/data";
 import { distanceInKm } from "@/lib/distance";
 import type { Institution, InstitutionCategory } from "@/types/institution";
@@ -74,9 +75,10 @@ export function HomeExplorer({ institutions, initialCategory, initialCity = "", 
   }, [categories, city, district, duty, institutions, nearbyOnly, officialOnly, phoneOnly, query, userPosition]);
 
   const filtered = results.map(({ institution }) => institution);
-  const isIstanbulPharmacyMode = city === "İstanbul" && (categories.length === 0 || categories.includes("pharmacy"));
-  const emptyStateMessage = isIstanbulPharmacyMode
-    ? "İstanbul için canlı nöbetçi eczane verisi henüz doğrudan bağlanmadı. Güncel listeyi resmî kaynaklardan kontrol edebilirsiniz."
+  const pharmacySource = getPharmacyOfficialSource(city);
+  const isOfficialPharmacyGuideMode = Boolean(pharmacySource) && (categories.length === 0 || categories.includes("pharmacy"));
+  const emptyStateMessage = isOfficialPharmacyGuideMode
+    ? `${city} için canlı nöbetçi eczane verisi henüz doğrudan bağlanmadı. Güncel listeyi resmî kaynaklardan kontrol edebilirsiniz.`
     : undefined;
 
   function locateUser(enableNearby = false) {
@@ -127,7 +129,7 @@ export function HomeExplorer({ institutions, initialCategory, initialCity = "", 
         onNearbyOnlyChange={handleNearbyChange}
       />
       {hasSampleData && <div className="sample-notice"><strong>Demo görünümü:</strong> Bu kayıtlar gerçek nöbet bilgisi değildir ve “Demo veri” etiketiyle gösterilir. Gitmeden önce kurumun resmi kaynağından doğrulayın.</div>}
-      {showIstanbulPharmacyNotice && isIstanbulPharmacyMode && <IstanbulPharmacyNotice />}
+      {showIstanbulPharmacyNotice && isOfficialPharmacyGuideMode && <PharmacyOfficialSourceNotice city={city} />}
       <div className="explorer-grid">
         <div className="map-shell"><MapView institutions={filtered} focused={focused} userPosition={userPosition} /></div>
         <aside className="results-panel" aria-label="Kurum sonuçları">

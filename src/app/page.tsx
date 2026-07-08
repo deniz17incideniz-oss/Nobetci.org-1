@@ -1,34 +1,46 @@
-import { HomeExplorer } from "@/components/HomeExplorer";
 import { HowItWorks } from "@/components/HowItWorks";
-import { PopularSearches } from "@/components/PopularSearches";
 import { TrustSection } from "@/components/TrustSection";
-import { getInstitutions } from "@/lib/data";
+import { majorCities } from "@/data/officialSources";
+import { slugifyTurkish } from "@/data/cities";
 import { absoluteSiteUrl, createMetadata } from "@/lib/seo";
 
 export const metadata = createMetadata(
-  "Nobetci.org | Türkiye Nöbetçi Eczane, Noter ve Acil Kurum Haritası",
-  "Türkiye’deki nöbetçi eczane, noter, acil servis ve diğer nöbetçi kurumları haritada bulun. İl ve ilçe seçin, adres, telefon ve yol tarifi bilgilerine kolayca ulaşın.",
+  "Nöbetçi Kurum Rehberi | Eczane, Noter ve Acil Servis Bilgileri",
+  "Türkiye’de nöbetçi eczane, noter ve acil servis bilgilerine hızlıca ulaşın. Şehrinizi seçin, resmî kaynaklardan güncel bilgileri doğrulayın.",
   "/",
 );
 
 export default function HomePage() {
-  const institutions = getInstitutions();
-
   return (
     <>
       <section className="hero">
         <div className="container hero-inner">
-          <span className="eyebrow">Türkiye genelinde hızlı arama</span>
-          <h1>Türkiye’nin Nöbetçi Kurum Haritası</h1>
-          <p>Eczane, noter, acil servis ve diğer nöbetçi kurumları harita üzerinde kolayca bulun.</p>
-          <p className="hero-secondary">İl ve ilçe seçin, size en yakın nöbetçi kurumları görün, yol tarifi alın.</p>
-          <a className="hero-link" href="#harita">Haritayı incele <span aria-hidden="true">↓</span></a>
+          <span className="eyebrow">Resmî kaynaklara hızlı yönlendirme</span>
+          <h1>Türkiye’de Nöbetçi Kurumları Kolayca Bul</h1>
+          <p>Nöbetçi eczane, noter ve acil servis bilgileri için resmî kaynaklara hızlıca ulaşın.</p>
+          <label className="search-box hero-search">
+            <span aria-hidden="true">⌕</span>
+            <span className="sr-only">Şehir veya kurum türü ara</span>
+            <input type="search" placeholder="Şehir veya kurum türü ara" />
+          </label>
         </div>
       </section>
       <div className="container">
-        <HomeExplorer institutions={institutions} />
+        <section className="quick-cards" aria-label="Ana rehberler">
+          <article className="quick-card"><h2>Nöbetçi Eczane</h2><p>Şehrinizdeki nöbetçi eczane bilgisini resmî kaynaklardan doğrulamak için rehber sayfalarını kullanın.</p><a href="/nobetci-eczane">Ara</a></article>
+          <article className="quick-card"><h2>Nöbetçi Noter</h2><p>Nöbetçi noter bilgisini Türkiye Noterler Birliği üzerinden kontrol edin.</p><a href="/nobetci-noter">Resmî kaynağa git</a></article>
+          <article className="quick-card"><h2>Acil Servis</h2><p>Acil durumda 112’yi arayın. Hastane ve acil servis bilgileri için doğrulama rehberini inceleyin.</p><a href="/acil-servis">Rehberi aç</a></article>
+        </section>
         <div className="global-warning">Bu platform bilgilendirme amaçlıdır. Nöbet bilgileri değişebilir. Sağlık, noterlik veya acil işlemler öncesinde resmi kaynaklardan doğrulama yapınız.</div>
-        <PopularSearches />
+        <section className="content-section" aria-labelledby="major-city-title">
+          <div className="section-heading">
+            <span className="eyebrow">Şehre göre eczane rehberi</span>
+            <h2 id="major-city-title">Büyükşehirlerde Nöbetçi Eczane Rehberi</h2>
+          </div>
+          <div className="city-chip-grid">
+            {majorCities.map((city) => <a key={city} href={`/${slugifyTurkish(city)}/nobetci-eczane`}>{city}</a>)}
+          </div>
+        </section>
         <HowItWorks />
         <TrustSection />
       </div>

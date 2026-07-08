@@ -1,12 +1,8 @@
 import { fetchOfficialJsonSource } from "./shared";
+import { getPharmacyOfficialSource } from "@/data/officialSources";
 import type { Institution } from "@/types/institution";
 
-export const istanbulPharmacySourceConfig = {
-  sourceName: "İstanbul Eczacı Odası",
-  sourceUrl: "https://www.istanbuleczaciodasi.org.tr/nobetci-eczane/",
-  secondarySourceName: "e-Devlet TİTCK",
-  secondarySourceUrl: "https://www.turkiye.gov.tr/saglik-titck-nobetci-eczane-sorgulama",
-} as const;
+export const istanbulPharmacySourceConfig = getPharmacyOfficialSource("İstanbul");
 
 /**
  * Yalnızca yeniden kullanıma izin veren resmî eczacı odası/sağlık müdürlüğü

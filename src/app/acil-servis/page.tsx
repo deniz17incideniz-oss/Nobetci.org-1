@@ -2,5 +2,5 @@ import { DirectoryPage } from "@/components/DirectoryPage";
 import { getInstitutions } from "@/lib/data";
 import { createMetadata } from "@/lib/seo";
 
-export const metadata = createMetadata("Acil Servis Haritası | Size En Yakın Hastane Acilleri", "Türkiye genelindeki hastane acil servislerini harita üzerinden bulun. Adres, telefon ve yol tarifi bilgileriyle hızlıca ulaşın.", "/acil-servis");
+export const metadata = createMetadata("Acil Servis Rehberi | 112 ve Hastane Bilgileri", "Acil durumlarda 112’yi arayın. Hastane ve acil servis bilgilerini doğrulamak için bilgilendirici acil servis rehberi.", "/acil-servis");
 export default function HospitalPage() { return <DirectoryPage kind="hospital" institutions={getInstitutions()} />; }
