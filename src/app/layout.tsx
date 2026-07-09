@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import "leaflet/dist/leaflet.css";
 import "./globals.css";
 import { Footer } from "@/components/Footer";
@@ -28,14 +27,14 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="tr">
-      <body>
-        <Script
-          id="google-adsense"
+      <head>
+        <script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1287455375559097"
           crossOrigin="anonymous"
-          strategy="beforeInteractive"
         />
+      </head>
+      <body>
         <Navbar />
         <main>{children}</main>
         <Footer />
