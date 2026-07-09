@@ -1,6 +1,8 @@
 import { CitySelector } from "@/components/CitySelector";
 import { TrustNotice } from "@/components/TrustNotice";
 import { getPharmacyOfficialSource, emergencySourceUrl, notarySourceUrl, titckPharmacyUrl } from "@/data/officialSources";
+import { getSeoDistricts } from "@/data/pharmacySeo";
+import { slugifyTurkish } from "@/data/cities";
 import { directoryConfig, type DirectoryKind } from "@/lib/directory";
 import type { Institution } from "@/types/institution";
 
@@ -12,14 +14,18 @@ const municipalCards = [
   ["🐾", "Veteriner / Sokak Hayvanları", "Şehrinizin belediye veterinerlik birimine ulaşın."],
 ] as const;
 
-export function DirectoryPage({ kind, city }: { kind: DirectoryKind; institutions: Institution[]; city?: string; district?: string }) {
+export function DirectoryPage({ kind, city, district }: { kind: DirectoryKind; institutions: Institution[]; city?: string; district?: string }) {
   const config = directoryConfig[kind];
   const pharmacySource = kind === "pharmacy" ? getPharmacyOfficialSource(city) : undefined;
-  const cityPharmacyButton = city ? `${city} Nöbetçi Eczanelerini Gör` : "Nöbetçi Eczaneleri Gör";
-  const cityEdevletButton = city ? `${city} Eczane Bilgisini e-Devlet’te Kontrol Et` : "Eczane Bilgisini e-Devlet’te Kontrol Et";
-  const heading = city && kind === "pharmacy" ? `${city} Nöbetçi Eczane` : config.heading;
-  const description = city && kind === "pharmacy"
-    ? "Güncel nöbetçi eczane listesini resmî kaynaklardan kontrol edin."
+  const pharmacyPlace = district ?? city;
+  const cityPharmacyButton = pharmacyPlace ? `${pharmacyPlace} Nöbetçi Eczanelerini Gör` : "Nöbetçi Eczaneleri Gör";
+  const cityEdevletButton = pharmacyPlace ? `${pharmacyPlace} Eczane Bilgisini e-Devlet’te Kontrol Et` : "Eczane Bilgisini e-Devlet’te Kontrol Et";
+  const cityDistricts = city && !district ? getSeoDistricts(city) : [];
+  const heading = pharmacyPlace && kind === "pharmacy" ? `${pharmacyPlace} Nöbetçi Eczaneler` : config.heading;
+  const description = district && kind === "pharmacy"
+    ? `${district} nöbetçi eczaneler için güncel resmî kaynaklara ulaşın.`
+    : city && kind === "pharmacy"
+    ? `${city} nöbetçi eczaneler için güncel resmî kaynaklara hızlıca ulaşın.`
     : config.description;
   const structuredData = {
     "@context": "https://schema.org",
@@ -49,6 +55,17 @@ export function DirectoryPage({ kind, city }: { kind: DirectoryKind; institution
             </div>
             <p className="source-note">Güncel liste resmî kaynakta açılır.</p>
             <p className="micro-warning">Nöbetçi eczane bilgileri değişebilir. Gitmeden önce adres ve telefonu doğrulayın.</p>
+            {cityDistricts.length > 0 && (
+              <section className="content-section compact-section" aria-labelledby="district-links-title">
+                <div className="section-heading">
+                  <span className="eyebrow">İlçeler</span>
+                  <h2 id="district-links-title">{city} İlçe Nöbetçi Eczaneler</h2>
+                </div>
+                <div className="city-chip-grid">
+                  {cityDistricts.map((item) => <a key={item} href={`/${slugifyTurkish(city ?? "")}/${slugifyTurkish(item)}/nobetci-eczane`}>{item}</a>)}
+                </div>
+              </section>
+            )}
             <CitySelector title={city ? "Diğer Şehirler" : "Şehir Seç"} />
           </>
         )}

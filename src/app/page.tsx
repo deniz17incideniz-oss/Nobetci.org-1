@@ -6,8 +6,8 @@ import { emergencySourceUrl, notarySourceUrl, titckPharmacyUrl } from "@/data/of
 import { absoluteSiteUrl, createMetadata } from "@/lib/seo";
 
 export const metadata = createMetadata(
-  "Nöbetçi Kurum Rehberi | Eczane, Noter ve Acil Servis",
-  "Türkiye’de nöbetçi eczane, noter ve acil servis bilgileri için resmî kaynaklara hızlıca ulaşın. Şehrinizi seçin, güncel bilgileri doğrulayın.",
+  "Nöbetçi Eczaneler ve Kurum Rehberi | Resmî Kaynaklara Hızlı Erişim",
+  "Nöbetçi eczaneler, nöbetçi noter ve acil servis bilgileri için resmî kaynaklara hızlıca ulaşın. Şehrinizi seçin, güncel bilgileri doğrulayın.",
   "/",
 );
 

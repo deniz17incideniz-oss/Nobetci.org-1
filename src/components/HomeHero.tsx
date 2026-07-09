@@ -3,7 +3,7 @@ export function HomeHero() {
     <section className="hero">
       <div className="container hero-inner">
         <span className="eyebrow">Hızlı resmî yönlendirme</span>
-        <h1>Nöbetçi Kurumlara Hızlı Erişim</h1>
+        <h1>Nöbetçi Eczaneler ve Kurum Rehberi</h1>
         <p>Eczane, noter, acil servis ve belediye hizmetleri için resmî kaynaklara hızlıca ulaşın.</p>
       </div>
     </section>

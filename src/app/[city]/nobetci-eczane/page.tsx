@@ -14,8 +14,8 @@ export async function generateMetadata({ params }: { params: Promise<{ city: str
   const found = findCityBySlug(city);
   if (!found || !majorCities.includes(found.name as (typeof majorCities)[number])) return {};
   return createMetadata(
-    `${found.name} Nöbetçi Eczane | Güncel Liste`,
-    `${found.name} nöbetçi eczane listesini resmî kaynaklardan kontrol edin. Gitmeden önce adres ve telefonu doğrulayın.`,
+    `${found.name} Nöbetçi Eczaneler | Güncel Resmî Kaynaklar`,
+    `${found.name} nöbetçi eczaneler için güncel resmî kaynaklara hızlıca ulaşın. Eczane adresi, telefon ve nöbet bilgisini gitmeden önce doğrulayın.`,
     `/${city}/nobetci-eczane`,
   );
 }
